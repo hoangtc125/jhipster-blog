@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TranslatorContext } from 'react-jhipster';
 
 const initialState = {
-  currentLocale: '',
+  currentLocale: 'vi',
   sourcePrefixes: [],
   lastChange: TranslatorContext.context.lastChange,
   loadedKeys: [],

@@ -34,7 +34,7 @@ const AppRoutes = () => {
     sendActivity(location.pathname);
   }, [location]);
   return (
-    <div className="view-routes">
+    <div className="view-routes" style={{ padding: '20px 0px' }}>
       <ErrorBoundaryRoutes>
         <Route index element={<Home />} />
         <Route path="login" element={<Login />} />
