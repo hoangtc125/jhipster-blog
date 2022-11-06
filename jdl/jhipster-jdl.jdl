@@ -12,6 +12,12 @@ entity Blog {
     content String
 }
 
+@dto(mapstruct)
+entity Product {
+	name String
+	price Long
+}
+
 entity Reaction {
 	emotion Emotion
 }

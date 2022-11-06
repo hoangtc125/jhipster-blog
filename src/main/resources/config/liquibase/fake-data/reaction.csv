@@ -1,11 +1,11 @@
 id;emotion;application_user_id;blog_id
 1;SAD;1;1
 2;SAD;2;2
-3;LIKE;1;3
+3;LIKE;2;3
 4;SAD;1;4
-5;SAD;2;5
+5;SAD;1;5
 6;LOVE;1;6
-7;SAD;1;7
-8;LOVE;2;8
-9;SAD;2;9
+7;SAD;2;7
+8;LOVE;1;8
+9;SAD;1;9
 10;SAD;2;10

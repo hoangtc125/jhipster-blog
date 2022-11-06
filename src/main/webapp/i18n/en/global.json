@@ -11,6 +11,7 @@
         "blog": "Blog",
         "reaction": "Reaction",
         "comment": "Comment",
+        "product": "Product",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
