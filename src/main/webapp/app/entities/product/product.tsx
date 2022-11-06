@@ -111,6 +111,9 @@ export const Product = () => {
                 <th className="hand" onClick={sort('price')}>
                   <Translate contentKey="blogApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="blogApp.product.applicationUser">Application User</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -124,6 +127,13 @@ export const Product = () => {
                   </td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
+                  <td>
+                    {product.applicationUser ? (
+                      <Link to={`/application-user/${product.applicationUser.id}`}>{product.applicationUser.id}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/product/${product.id}`} color="info" size="sm" data-cy="entityDetailsButton">

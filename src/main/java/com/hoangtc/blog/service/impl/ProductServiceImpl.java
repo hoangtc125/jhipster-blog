@@ -3,8 +3,6 @@ package com.hoangtc.blog.service.impl;
 import com.hoangtc.blog.domain.Product;
 import com.hoangtc.blog.repository.ProductRepository;
 import com.hoangtc.blog.service.ProductService;
-import com.hoangtc.blog.service.dto.ProductDTO;
-import com.hoangtc.blog.service.mapper.ProductMapper;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,56 +22,53 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final ProductMapper productMapper;
-
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.productMapper = productMapper;
     }
 
     @Override
-    public ProductDTO save(ProductDTO productDTO) {
-        log.debug("Request to save Product : {}", productDTO);
-        Product product = productMapper.toEntity(productDTO);
-        product = productRepository.save(product);
-        return productMapper.toDto(product);
+    public Product save(Product product) {
+        log.debug("Request to save Product : {}", product);
+        return productRepository.save(product);
     }
 
     @Override
-    public ProductDTO update(ProductDTO productDTO) {
-        log.debug("Request to update Product : {}", productDTO);
-        Product product = productMapper.toEntity(productDTO);
-        product = productRepository.save(product);
-        return productMapper.toDto(product);
+    public Product update(Product product) {
+        log.debug("Request to update Product : {}", product);
+        return productRepository.save(product);
     }
 
     @Override
-    public Optional<ProductDTO> partialUpdate(ProductDTO productDTO) {
-        log.debug("Request to partially update Product : {}", productDTO);
+    public Optional<Product> partialUpdate(Product product) {
+        log.debug("Request to partially update Product : {}", product);
 
         return productRepository
-            .findById(productDTO.getId())
+            .findById(product.getId())
             .map(existingProduct -> {
-                productMapper.partialUpdate(existingProduct, productDTO);
+                if (product.getName() != null) {
+                    existingProduct.setName(product.getName());
+                }
+                if (product.getPrice() != null) {
+                    existingProduct.setPrice(product.getPrice());
+                }
 
                 return existingProduct;
             })
-            .map(productRepository::save)
-            .map(productMapper::toDto);
+            .map(productRepository::save);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<Product> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAll(pageable).map(productMapper::toDto);
+        return productRepository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductDTO> findOne(Long id) {
+    public Optional<Product> findOne(Long id) {
         log.debug("Request to get Product : {}", id);
-        return productRepository.findById(id).map(productMapper::toDto);
+        return productRepository.findById(id);
     }
 
     @Override

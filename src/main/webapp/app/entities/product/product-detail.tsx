@@ -44,6 +44,10 @@ export const ProductDetail = () => {
             </span>
           </dt>
           <dd>{productEntity.price}</dd>
+          <dt>
+            <Translate contentKey="blogApp.product.applicationUser">Application User</Translate>
+          </dt>
+          <dd>{productEntity.applicationUser ? productEntity.applicationUser.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/product" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -35,6 +35,12 @@
       "otherEntityRelationshipName": "applicationUser",
       "relationshipName": "comment",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "applicationUser",
+      "relationshipName": "product",
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "serviceImpl"

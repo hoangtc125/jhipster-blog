@@ -41,7 +41,7 @@ public class Blog implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "internalUser", "blogs", "reactions", "comments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "internalUser", "blogs", "reactions", "comments", "products" }, allowSetters = true)
     private ApplicationUser applicationUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

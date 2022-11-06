@@ -6,10 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.hoangtc.blog.IntegrationTest;
+import com.hoangtc.blog.domain.ApplicationUser;
 import com.hoangtc.blog.domain.Product;
 import com.hoangtc.blog.repository.ProductRepository;
-import com.hoangtc.blog.service.dto.ProductDTO;
-import com.hoangtc.blog.service.mapper.ProductMapper;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -47,9 +46,6 @@ class ProductResourceIT {
     private ProductRepository productRepository;
 
     @Autowired
-    private ProductMapper productMapper;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
@@ -65,6 +61,16 @@ class ProductResourceIT {
      */
     public static Product createEntity(EntityManager em) {
         Product product = new Product().name(DEFAULT_NAME).price(DEFAULT_PRICE);
+        // Add required entity
+        ApplicationUser applicationUser;
+        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
+            applicationUser = ApplicationUserResourceIT.createEntity(em);
+            em.persist(applicationUser);
+            em.flush();
+        } else {
+            applicationUser = TestUtil.findAll(em, ApplicationUser.class).get(0);
+        }
+        product.setApplicationUser(applicationUser);
         return product;
     }
 
@@ -76,6 +82,16 @@ class ProductResourceIT {
      */
     public static Product createUpdatedEntity(EntityManager em) {
         Product product = new Product().name(UPDATED_NAME).price(UPDATED_PRICE);
+        // Add required entity
+        ApplicationUser applicationUser;
+        if (TestUtil.findAll(em, ApplicationUser.class).isEmpty()) {
+            applicationUser = ApplicationUserResourceIT.createUpdatedEntity(em);
+            em.persist(applicationUser);
+            em.flush();
+        } else {
+            applicationUser = TestUtil.findAll(em, ApplicationUser.class).get(0);
+        }
+        product.setApplicationUser(applicationUser);
         return product;
     }
 
@@ -89,9 +105,8 @@ class ProductResourceIT {
     void createProduct() throws Exception {
         int databaseSizeBeforeCreate = productRepository.findAll().size();
         // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
         restProductMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isCreated());
 
         // Validate the Product in the database
@@ -107,13 +122,12 @@ class ProductResourceIT {
     void createProductWithExistingId() throws Exception {
         // Create the Product with an existing ID
         product.setId(1L);
-        ProductDTO productDTO = productMapper.toDto(product);
 
         int databaseSizeBeforeCreate = productRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
@@ -173,13 +187,12 @@ class ProductResourceIT {
         // Disconnect from session so that the updates on updatedProduct are not directly saved in db
         em.detach(updatedProduct);
         updatedProduct.name(UPDATED_NAME).price(UPDATED_PRICE);
-        ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
         restProductMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, productDTO.getId())
+                put(ENTITY_API_URL_ID, updatedProduct.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(productDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(updatedProduct))
             )
             .andExpect(status().isOk());
 
@@ -197,15 +210,12 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, productDTO.getId())
+                put(ENTITY_API_URL_ID, product.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(productDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(product))
             )
             .andExpect(status().isBadRequest());
 
@@ -220,15 +230,12 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restProductMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(productDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(product))
             )
             .andExpect(status().isBadRequest());
 
@@ -243,12 +250,9 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restProductMockMvc
-            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .perform(put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Product in the database
@@ -320,15 +324,12 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, productDTO.getId())
+                patch(ENTITY_API_URL_ID, product.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(productDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(product))
             )
             .andExpect(status().isBadRequest());
 
@@ -343,15 +344,12 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restProductMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(productDTO))
+                    .content(TestUtil.convertObjectToJsonBytes(product))
             )
             .andExpect(status().isBadRequest());
 
@@ -366,14 +364,9 @@ class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
         product.setId(count.incrementAndGet());
 
-        // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
-
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restProductMockMvc
-            .perform(
-                patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(productDTO))
-            )
+            .perform(patch(ENTITY_API_URL).contentType("application/merge-patch+json").content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isMethodNotAllowed());
 
         // Validate the Product in the database

@@ -21,7 +21,8 @@
       "internalUser": "Internal User",
       "blog": "Blog",
       "reaction": "Reaction",
-      "comment": "Comment"
+      "comment": "Comment",
+      "product": "Product"
     }
   }
 }

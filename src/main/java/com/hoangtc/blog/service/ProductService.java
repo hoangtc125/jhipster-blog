@@ -1,37 +1,37 @@
 package com.hoangtc.blog.service;
 
-import com.hoangtc.blog.service.dto.ProductDTO;
+import com.hoangtc.blog.domain.Product;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * Service Interface for managing {@link com.hoangtc.blog.domain.Product}.
+ * Service Interface for managing {@link Product}.
  */
 public interface ProductService {
     /**
      * Save a product.
      *
-     * @param productDTO the entity to save.
+     * @param product the entity to save.
      * @return the persisted entity.
      */
-    ProductDTO save(ProductDTO productDTO);
+    Product save(Product product);
 
     /**
      * Updates a product.
      *
-     * @param productDTO the entity to update.
+     * @param product the entity to update.
      * @return the persisted entity.
      */
-    ProductDTO update(ProductDTO productDTO);
+    Product update(Product product);
 
     /**
      * Partially updates a product.
      *
-     * @param productDTO the entity to update partially.
+     * @param product the entity to update partially.
      * @return the persisted entity.
      */
-    Optional<ProductDTO> partialUpdate(ProductDTO productDTO);
+    Optional<Product> partialUpdate(Product product);
 
     /**
      * Get all the products.
@@ -39,7 +39,7 @@ public interface ProductService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<ProductDTO> findAll(Pageable pageable);
+    Page<Product> findAll(Pageable pageable);
 
     /**
      * Get the "id" product.
@@ -47,7 +47,7 @@ public interface ProductService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<ProductDTO> findOne(Long id);
+    Optional<Product> findOne(Long id);
 
     /**
      * Delete the "id" product.

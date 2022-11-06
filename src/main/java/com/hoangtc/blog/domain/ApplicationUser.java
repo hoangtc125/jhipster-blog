@@ -39,6 +39,10 @@ public class ApplicationUser implements Serializable {
     @JsonIgnoreProperties(value = { "applicationUser", "blog" }, allowSetters = true)
     private Set<Comment> comments = new HashSet<>();
 
+    @OneToMany(mappedBy = "applicationUser")
+    @JsonIgnoreProperties(value = { "applicationUser" }, allowSetters = true)
+    private Set<Product> products = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -157,6 +161,37 @@ public class ApplicationUser implements Serializable {
     public ApplicationUser removeComment(Comment comment) {
         this.comments.remove(comment);
         comment.setApplicationUser(null);
+        return this;
+    }
+
+    public Set<Product> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        if (this.products != null) {
+            this.products.forEach(i -> i.setApplicationUser(null));
+        }
+        if (products != null) {
+            products.forEach(i -> i.setApplicationUser(this));
+        }
+        this.products = products;
+    }
+
+    public ApplicationUser products(Set<Product> products) {
+        this.setProducts(products);
+        return this;
+    }
+
+    public ApplicationUser addProduct(Product product) {
+        this.products.add(product);
+        product.setApplicationUser(this);
+        return this;
+    }
+
+    public ApplicationUser removeProduct(Product product) {
+        this.products.remove(product);
+        product.setApplicationUser(null);
         return this;
     }
 

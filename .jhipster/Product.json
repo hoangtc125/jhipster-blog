@@ -1,7 +1,7 @@
 {
   "applications": "*",
   "changelogDate": "20221106160000",
-  "dto": "mapstruct",
+  "dto": "no",
   "embedded": false,
   "entityTableName": "product",
   "fields": [
@@ -19,6 +19,14 @@
   "name": "Product",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "applicationUser",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "applicationUser",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
   "service": "serviceImpl"
 }

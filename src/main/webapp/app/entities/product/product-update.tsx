@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IApplicationUser } from 'app/shared/model/application-user.model';
+import { getEntities as getApplicationUsers } from 'app/entities/application-user/application-user.reducer';
 import { IProduct } from 'app/shared/model/product.model';
 import { getEntity, updateEntity, createEntity, reset } from './product.reducer';
 
@@ -19,6 +21,7 @@ export const ProductUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const applicationUsers = useAppSelector(state => state.applicationUser.entities);
   const productEntity = useAppSelector(state => state.product.entity);
   const loading = useAppSelector(state => state.product.loading);
   const updating = useAppSelector(state => state.product.updating);
@@ -34,6 +37,8 @@ export const ProductUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getApplicationUsers({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const ProductUpdate = () => {
     const entity = {
       ...productEntity,
       ...values,
+      applicationUser: applicationUsers.find(it => it.id.toString() === values.applicationUser.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const ProductUpdate = () => {
       ? {}
       : {
           ...productEntity,
+          applicationUser: productEntity?.applicationUser?.id,
         };
 
   return (
@@ -89,6 +96,26 @@ export const ProductUpdate = () => {
               ) : null}
               <ValidatedField label={translate('blogApp.product.name')} id="product-name" name="name" data-cy="name" type="text" />
               <ValidatedField label={translate('blogApp.product.price')} id="product-price" name="price" data-cy="price" type="text" />
+              <ValidatedField
+                id="product-applicationUser"
+                name="applicationUser"
+                data-cy="applicationUser"
+                label={translate('blogApp.product.applicationUser')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {applicationUsers
+                  ? applicationUsers.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/product" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

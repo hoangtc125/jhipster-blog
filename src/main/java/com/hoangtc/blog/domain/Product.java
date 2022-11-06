@@ -1,7 +1,9 @@
 package com.hoangtc.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A Product.
@@ -23,6 +25,11 @@ public class Product extends AbstractAuditingEntity<Long> implements Serializabl
 
     @Column(name = "price")
     private Long price;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "internalUser", "blogs", "reactions", "comments", "products" }, allowSetters = true)
+    private ApplicationUser applicationUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -63,6 +70,19 @@ public class Product extends AbstractAuditingEntity<Long> implements Serializabl
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public ApplicationUser getApplicationUser() {
+        return this.applicationUser;
+    }
+
+    public void setApplicationUser(ApplicationUser applicationUser) {
+        this.applicationUser = applicationUser;
+    }
+
+    public Product applicationUser(ApplicationUser applicationUser) {
+        this.setApplicationUser(applicationUser);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

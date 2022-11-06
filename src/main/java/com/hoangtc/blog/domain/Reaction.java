@@ -27,7 +27,7 @@ public class Reaction implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "internalUser", "blogs", "reactions", "comments" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "internalUser", "blogs", "reactions", "comments", "products" }, allowSetters = true)
     private ApplicationUser applicationUser;
 
     @ManyToOne(optional = false)

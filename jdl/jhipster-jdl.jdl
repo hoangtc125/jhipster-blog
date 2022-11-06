@@ -12,7 +12,7 @@ entity Blog {
     content String
 }
 
-@dto(mapstruct)
+// @dto(mapstruct)
 entity Product {
 	name String
 	price Long
@@ -36,6 +36,7 @@ relationship OneToMany {
     Blog to Reaction{blog required},
 	ApplicationUser to Comment{applicationUser required}
     Blog to Comment{blog required}
+	ApplicationUser to Product{applicationUser required}
 }
 
 // Set pagination options
