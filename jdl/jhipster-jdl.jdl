@@ -1,0 +1,45 @@
+
+entity ApplicationUser {
+}
+
+relationship OneToOne {
+  ApplicationUser{internalUser required} to User
+}
+
+entity Blog {
+	title String
+    description String
+    content String
+}
+
+entity Reaction {
+	emotion Emotion
+}
+
+entity Comment {
+	content String
+}
+
+enum Emotion {
+	LIKE, HAHA, LOVE, SAD, ANGRY
+}
+
+relationship OneToMany {
+	ApplicationUser to Blog{applicationUser required},
+	ApplicationUser to Reaction{applicationUser required},
+    Blog to Reaction{blog required},
+	ApplicationUser to Comment{applicationUser required}
+    Blog to Comment{blog required}
+}
+
+// Set pagination options
+paginate all with pagination except User
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct except User
+
+// Set service options to all except few
+service all with serviceImpl except User
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

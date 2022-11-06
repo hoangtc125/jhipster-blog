@@ -1,0 +1,27 @@
+{
+  "blogApp": {
+    "applicationUser": {
+      "home": {
+        "title": "Application Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Application User",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Application User",
+        "notFound": "No Application Users found"
+      },
+      "created": "Một Application User mới được tạo với định danh {{ param }}",
+      "updated": "Một Application User cập nhật với định danh {{ param }}",
+      "deleted": "Một Application User đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Application User {{ id }}?"
+      },
+      "detail": {
+        "title": "Application User"
+      },
+      "id": "ID",
+      "internalUser": "Internal User",
+      "blog": "Blog",
+      "reaction": "Reaction",
+      "comment": "Comment"
+    }
+  }
+}

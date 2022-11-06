@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20221106140128",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "application_user",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ApplicationUser",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "ownerSide": true,
+      "relationshipName": "internalUser",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "blog",
+      "otherEntityRelationshipName": "applicationUser",
+      "relationshipName": "blog",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "reaction",
+      "otherEntityRelationshipName": "applicationUser",
+      "relationshipName": "reaction",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "applicationUser",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

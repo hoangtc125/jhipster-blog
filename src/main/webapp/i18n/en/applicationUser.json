@@ -1,0 +1,27 @@
+{
+  "blogApp": {
+    "applicationUser": {
+      "home": {
+        "title": "Application Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Application User",
+        "createOrEditLabel": "Create or edit a Application User",
+        "notFound": "No Application Users found"
+      },
+      "created": "A new Application User is created with identifier {{ param }}",
+      "updated": "A Application User is updated with identifier {{ param }}",
+      "deleted": "A Application User is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Application User {{ id }}?"
+      },
+      "detail": {
+        "title": "Application User"
+      },
+      "id": "ID",
+      "internalUser": "Internal User",
+      "blog": "Blog",
+      "reaction": "Reaction",
+      "comment": "Comment"
+    }
+  }
+}

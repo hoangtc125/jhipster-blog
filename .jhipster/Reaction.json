@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20221106140130",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "reaction",
+  "fields": [
+    {
+      "fieldName": "emotion",
+      "fieldType": "Emotion",
+      "fieldValues": "LIKE,HAHA,LOVE,SAD,ANGRY"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Reaction",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "applicationUser",
+      "otherEntityRelationshipName": "reaction",
+      "relationshipName": "applicationUser",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "blog",
+      "otherEntityRelationshipName": "reaction",
+      "relationshipName": "blog",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceImpl"
+}

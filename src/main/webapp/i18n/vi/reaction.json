@@ -1,0 +1,26 @@
+{
+  "blogApp": {
+    "reaction": {
+      "home": {
+        "title": "Reactions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Reaction",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Reaction",
+        "notFound": "No Reactions found"
+      },
+      "created": "Một Reaction mới được tạo với định danh {{ param }}",
+      "updated": "Một Reaction cập nhật với định danh {{ param }}",
+      "deleted": "Một Reaction đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Reaction {{ id }}?"
+      },
+      "detail": {
+        "title": "Reaction"
+      },
+      "id": "ID",
+      "emotion": "Emotion",
+      "applicationUser": "Application User",
+      "blog": "Blog"
+    }
+  }
+}

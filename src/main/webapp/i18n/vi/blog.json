@@ -1,0 +1,29 @@
+{
+  "blogApp": {
+    "blog": {
+      "home": {
+        "title": "Blogs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Blog",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Blog",
+        "notFound": "No Blogs found"
+      },
+      "created": "Một Blog mới được tạo với định danh {{ param }}",
+      "updated": "Một Blog cập nhật với định danh {{ param }}",
+      "deleted": "Một Blog đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Blog {{ id }}?"
+      },
+      "detail": {
+        "title": "Blog"
+      },
+      "id": "ID",
+      "title": "Title",
+      "description": "Description",
+      "content": "Content",
+      "reaction": "Reaction",
+      "comment": "Comment",
+      "applicationUser": "Application User"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "blogApp": {
+    "reaction": {
+      "home": {
+        "title": "Reactions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Reaction",
+        "createOrEditLabel": "Create or edit a Reaction",
+        "notFound": "No Reactions found"
+      },
+      "created": "A new Reaction is created with identifier {{ param }}",
+      "updated": "A Reaction is updated with identifier {{ param }}",
+      "deleted": "A Reaction is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Reaction {{ id }}?"
+      },
+      "detail": {
+        "title": "Reaction"
+      },
+      "id": "ID",
+      "emotion": "Emotion",
+      "applicationUser": "Application User",
+      "blog": "Blog"
+    }
+  }
+}

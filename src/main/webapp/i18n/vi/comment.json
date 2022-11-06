@@ -1,0 +1,26 @@
+{
+  "blogApp": {
+    "comment": {
+      "home": {
+        "title": "Comments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Comment",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Comment",
+        "notFound": "No Comments found"
+      },
+      "created": "Một Comment mới được tạo với định danh {{ param }}",
+      "updated": "Một Comment cập nhật với định danh {{ param }}",
+      "deleted": "Một Comment đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Comment {{ id }}?"
+      },
+      "detail": {
+        "title": "Comment"
+      },
+      "id": "ID",
+      "content": "Content",
+      "applicationUser": "Application User",
+      "blog": "Blog"
+    }
+  }
+}
